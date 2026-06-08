@@ -8,6 +8,8 @@ import {
 } from '../api/flightApi'
 import FlightTable from '../components/FlightTable'
 import FlightForm from '../components/FlightForm'
+import Spinner from '../components/Spinner'
+import LoadingBar from '../components/LoadingBar'
 
 export default function Admin() {
   const [flights, setFlights] = useState([])
@@ -85,6 +87,7 @@ export default function Admin() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
     >
+      <LoadingBar active={loading || saving} />
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">
           Admin <span className="text-slate-400">&middot;</span> Manage Flights
@@ -105,9 +108,7 @@ export default function Admin() {
       )}
 
       {loading ? (
-        <div className="rounded-xl border border-slate-200 bg-white p-12 text-center text-sm text-slate-500 shadow-sm">
-          Loading flights...
-        </div>
+        <Spinner />
       ) : (
         <FlightTable
           flights={flights}

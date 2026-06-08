@@ -3,6 +3,8 @@ import { motion } from 'framer-motion'
 import { getFlights } from '../api/flightApi'
 import FlightTable from '../components/FlightTable'
 import Select from '../components/Select'
+import Spinner from '../components/Spinner'
+import LoadingBar from '../components/LoadingBar'
 
 const STATUS_OPTIONS = [
   { value: 'ALL', label: 'All statuses' },
@@ -14,41 +16,6 @@ const STATUS_OPTIONS = [
   { value: 'DELAYED', label: 'Delayed', dot: 'bg-orange-500' },
   { value: 'CANCELLED', label: 'Cancelled', dot: 'bg-red-500' },
 ]
-
-function LoadingSkeleton() {
-  return (
-    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <div
-          key={i}
-          className="flex items-center gap-4 border-b border-slate-100 px-4 py-4 last:border-0"
-        >
-          {[
-            'w-16',
-            'w-40',
-            'w-14',
-            'w-14',
-            'w-10',
-            'w-32',
-            'w-20',
-          ].map((w, j) => (
-            <motion.div
-              key={j}
-              className={`h-4 ${w} rounded-md bg-slate-100`}
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{
-                duration: 1.4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: (i * 0.08) + (j * 0.04),
-              }}
-            />
-          ))}
-        </div>
-      ))}
-    </div>
-  )
-}
 
 export default function Timetable() {
   const [flights, setFlights] = useState([])
@@ -108,6 +75,7 @@ export default function Timetable() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
     >
+      <LoadingBar active={loading} />
       <div className="mb-6 flex items-center gap-3">
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">
           Departures
@@ -138,7 +106,7 @@ export default function Timetable() {
       </div>
 
       {loading ? (
-        <LoadingSkeleton />
+        <Spinner />
       ) : error ? (
         <motion.div
           initial={{ opacity: 0 }}
