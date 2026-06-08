@@ -21,7 +21,7 @@ import lv.turiba.flyware.service.FlightService;
 
 @RestController
 @RequestMapping("/api/flights")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 public class FlightController {
 
     private final FlightService service;
