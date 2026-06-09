@@ -70,12 +70,13 @@ export default function Timetable() {
   }, [flights, statusFilter, search])
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: 'easeOut' }}
-    >
+    <>
       <LoadingBar active={loading} />
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, ease: 'easeOut' }}
+      >
       <div className="mb-6 flex items-center gap-3">
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">
           Departures
@@ -118,6 +119,7 @@ export default function Timetable() {
       ) : (
         <FlightTable flights={filtered} />
       )}
-    </motion.div>
+      </motion.div>
+    </>
   )
 }

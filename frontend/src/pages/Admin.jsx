@@ -82,12 +82,13 @@ export default function Admin() {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: 'easeOut' }}
-    >
+    <>
       <LoadingBar active={loading || saving} />
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, ease: 'easeOut' }}
+      >
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">
           Admin <span className="text-slate-400">&middot;</span> Manage Flights
@@ -172,6 +173,7 @@ export default function Admin() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+      </motion.div>
+    </>
   )
 }
